@@ -1,0 +1,149 @@
+{
+  "Version": "2019-10-30",
+  "StartAction": "d61c2f75-8555-46a1-9cca-3d9a37580005",
+  "Metadata": {
+    "entryPointPosition": {
+      "x": -183.2,
+      "y": -51.2
+    },
+    "ActionMetadata": {
+      "dfee4c96-c461-46f1-96e9-84119391a948": {
+        "position": {
+          "x": 737.6,
+          "y": 36.8
+        }
+      },
+      "205d74cc-6e91-4c13-98f6-6827084a7c39": {
+        "position": {
+          "x": 370.4,
+          "y": -45.6
+        }
+      },
+      "d0942e13-46be-45fb-a566-a0303078da7e": {
+        "position": {
+          "x": 204,
+          "y": 305.6
+        }
+      },
+      "48268094-7bf5-4a6a-880d-747cde112a7c": {
+        "position": {
+          "x": 162.4,
+          "y": -48.8
+        },
+        "parameters": {
+          "Attributes": {
+            "first": {
+              "useDynamic": true
+            },
+            "second": {
+              "useDynamic": true
+            },
+            "third": {
+              "useDynamic": true
+            }
+          }
+        },
+        "dynamicParams": ["first", "second", "third"]
+      },
+      "d61c2f75-8555-46a1-9cca-3d9a37580005": {
+        "position": {
+          "x": -78.4,
+          "y": -51.2
+        },
+        "parameters": {
+          "LambdaFunctionARN": {
+            "displayName": "VanityNumbersGeneratorStack-VanityLambdaAA33F3FA-jpL0ce2j3ZWm"
+          }
+        },
+        "dynamicMetadata": {}
+      }
+    },
+    "Annotations": [],
+    "name": "Vanity Number Generator",
+    "description": "",
+    "type": "contactFlow",
+    "status": "PUBLISHED",
+    "hash": {}
+  },
+  "Actions": [
+    {
+      "Parameters": {},
+      "Identifier": "dfee4c96-c461-46f1-96e9-84119391a948",
+      "Type": "DisconnectParticipant",
+      "Transitions": {}
+    },
+    {
+      "Parameters": {
+        "SSML": "Here are the best three options based on your phone number. The first number is: $.Attributes.first, the second number is $.Attributes.second, and the third number is $.Attributes.third"
+      },
+      "Identifier": "205d74cc-6e91-4c13-98f6-6827084a7c39",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "dfee4c96-c461-46f1-96e9-84119391a948",
+        "Errors": [
+          {
+            "NextAction": "d0942e13-46be-45fb-a566-a0303078da7e",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Text": "I'm sorry, something went wrong. Please try again later."
+      },
+      "Identifier": "d0942e13-46be-45fb-a566-a0303078da7e",
+      "Type": "MessageParticipant",
+      "Transitions": {
+        "NextAction": "dfee4c96-c461-46f1-96e9-84119391a948",
+        "Errors": [
+          {
+            "NextAction": "dfee4c96-c461-46f1-96e9-84119391a948",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "Attributes": {
+          "first": "$.External.optionOne",
+          "second": "$.External.optionTwo",
+          "third": "$.External.optionThree"
+        },
+        "TargetContact": "Current"
+      },
+      "Identifier": "48268094-7bf5-4a6a-880d-747cde112a7c",
+      "Type": "UpdateContactAttributes",
+      "Transitions": {
+        "NextAction": "205d74cc-6e91-4c13-98f6-6827084a7c39",
+        "Errors": [
+          {
+            "NextAction": "d0942e13-46be-45fb-a566-a0303078da7e",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    },
+    {
+      "Parameters": {
+        "LambdaFunctionARN": "arn:aws:lambda:us-east-1:254325688885:function:VanityNumbersGeneratorStack-VanityLambdaAA33F3FA-jpL0ce2j3ZWm",
+        "InvocationTimeLimitSeconds": "5",
+        "ResponseValidation": {
+          "ResponseType": "JSON"
+        }
+      },
+      "Identifier": "d61c2f75-8555-46a1-9cca-3d9a37580005",
+      "Type": "InvokeLambdaFunction",
+      "Transitions": {
+        "NextAction": "48268094-7bf5-4a6a-880d-747cde112a7c",
+        "Errors": [
+          {
+            "NextAction": "d0942e13-46be-45fb-a566-a0303078da7e",
+            "ErrorType": "NoMatchingError"
+          }
+        ]
+      }
+    }
+  ]
+}
