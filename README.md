@@ -1,6 +1,6 @@
 # Assessment Project - Vanity Number Generator
 
-To run the program and deploy resources, first fork the repo to local directory. Configure the AWS CLI, signing in on the desired IAM account.
+To run the program and deploy resources, first clone the repo to local directory. Configure the AWS CLI, signing in on the desired IAM account.
 
 - Amazon Connect is not available in all AWS Regions. You will need to check that your CLI is set to an available region (list found here: [link](https://docs.aws.amazon.com/connect/latest/adminguide/regions.html#amazonconnect_region) ).
 
