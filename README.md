@@ -33,7 +33,7 @@ To implement the vanity number logic, I returned to some algorithm practice I ha
 
 ### Incomplete solutions / things to add
 
-- Currently, the `rankCombinations()` and `scoreVanity()` functions do not sort the results, and only return the first 5 generated combinations. With more time, I would continue to work on a solution to this issue.
+- The output of the best vanity options could be formatted better to make the prompt audio more understandable (example: "1555FLOWER1" may not be as clearly read as "1-555-FLOWER-1").
 
 - The test suites could be more comprehensive to ensure that future development doesn't cause feature breaks.
 
