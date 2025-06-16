@@ -56,13 +56,13 @@ export const handler = async (event: any, context?: any, callback?: any) => {
 };
 
 // function called recursively to generate all possible vanity options
-function getCombinations(
+export function getCombinations(
   phone: string,
   index = 0,
   prefix = "",
   result: string[] = []
 ): string[] {
-  if (index === phone.length || result.length >= 20) return result;
+  if (index === phone.length) return result;
   const digit = phone[index];
   const letters = DIGIT_TO_LETTERS[digit] || [digit];
 
@@ -75,7 +75,7 @@ function getCombinations(
   return result;
 }
 
-function rankCombinations(vanityOptions: string[]): string[] {
+export function rankCombinations(vanityOptions: string[]): string[] {
   // Assigns score to option
   const scored = vanityOptions.map((vanity) => ({
     vanity,
@@ -88,14 +88,14 @@ function rankCombinations(vanityOptions: string[]): string[] {
   return scored.slice(0, 5).map((entry) => entry.vanity);
 }
 
-function scoreVanity(vanity: string): number {
+export function scoreVanity(vanity: string): number {
   let score = 0;
 
   for (let len = 7; len >= 3; len--) {
     for (let i = 0; i <= vanity.length - len; i++) {
       const fragment = vanity.substring(i, i + len);
       // Look for real words in substrings
-      if (DICTIONARY.has(fragment)) {
+      if (DICTIONARY.has(fragment.toLowerCase())) {
         // reward longer words more
         score += len * 10;
       }
